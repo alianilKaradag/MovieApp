@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB835A7129B7DC7E0050A22D /* CollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB835A7029B7DC7E0050A22D /* CollectionTableViewCell.swift */; };
 		FBEC04C329B4EBB8003A96D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEC04C229B4EBB8003A96D4 /* AppDelegate.swift */; };
 		FBEC04C529B4EBB8003A96D4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEC04C429B4EBB8003A96D4 /* SceneDelegate.swift */; };
 		FBEC04C729B4EBB8003A96D4 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEC04C629B4EBB8003A96D4 /* MainTabBarViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FB835A7029B7DC7E0050A22D /* CollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTableViewCell.swift; sourceTree = "<group>"; };
 		FBEC04BF29B4EBB8003A96D4 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBEC04C229B4EBB8003A96D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBEC04C429B4EBB8003A96D4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +41,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FB835A6D29B7DBAC0050A22D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FB835A6E29B7DBB10050A22D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FB835A7029B7DC7E0050A22D /* CollectionTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FB835A6F29B7DBBC0050A22D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		FBEC04B629B4EBB8003A96D4 = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +82,9 @@
 		FBEC04C129B4EBB8003A96D4 /* MovieApp */ = {
 			isa = PBXGroup;
 			children = (
+				FB835A6D29B7DBAC0050A22D /* Models */,
+				FB835A6E29B7DBB10050A22D /* View */,
+				FB835A6F29B7DBBC0050A22D /* ViewModel */,
 				FBEC04D829B4F080003A96D4 /* Controllers */,
 				FBEC04C229B4EBB8003A96D4 /* AppDelegate.swift */,
 				FBEC04C629B4EBB8003A96D4 /* MainTabBarViewController.swift */,
@@ -149,6 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBEC04DC29B4F285003A96D4 /* HomeViewController.swift in Sources */,
+				FB835A7129B7DC7E0050A22D /* CollectionTableViewCell.swift in Sources */,
 				FBEC04DA29B4F0BC003A96D4 /* SearchViewController.swift in Sources */,
 				FBEC04C729B4EBB8003A96D4 /* MainTabBarViewController.swift in Sources */,
 				FBEC04C329B4EBB8003A96D4 /* AppDelegate.swift in Sources */,
@@ -296,7 +324,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -322,7 +350,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

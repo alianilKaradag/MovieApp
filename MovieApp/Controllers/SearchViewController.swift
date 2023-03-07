@@ -15,6 +15,11 @@ class SearchViewController: UIViewController {
     }
     
 
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        navigationController?.navigationBar.topItem?.title = "Search"
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
 
 }

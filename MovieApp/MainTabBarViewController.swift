@@ -9,17 +9,17 @@ import UIKit
 
 class MainTabBarViewController: UITabBarController {
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         tabBar.tintColor = .label
         setupViewControllers()
     }
     
     func setupViewControllers() {
           viewControllers = [
-            createNavigationController(SearchViewController(), title: "Home", UIImage(systemName:"house")!),
-            createNavigationController(HomeViewController(), title: "Search", UIImage(systemName:"magnifyingglass")!)
+            createNavigationController(HomeViewController(), title: "Home", UIImage(systemName:"house")!),
+            createNavigationController(SearchViewController(), title: "Search", UIImage(systemName:"magnifyingglass")!)
           ]
       }
     
@@ -27,12 +27,8 @@ class MainTabBarViewController: UITabBarController {
         let navController = UINavigationController(rootViewController: rootViewController)
             navController.tabBarItem.title = title
             navController.tabBarItem.image = image
-            navController.navigationBar.prefersLargeTitles = true
-            rootViewController.navigationItem.title = title
             return navController
         }
-
-    
 
 }
 
