@@ -18,7 +18,8 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //navigationController?.setNavigationBarHidden(true, animated: false)
-        navigationController?.navigationBar.topItem?.title = ""
+        navigationController?.navigationBar.topItem?.title = "Home"
+        
     }
 
     override func viewDidLoad() {
@@ -28,17 +29,20 @@ class HomeViewController: UIViewController {
         
         movieTable.dataSource = self
         movieTable.delegate = self
+        movieTable.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 400))
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        self.movieTable.sectionFooterHeight = 20
         movieTable.frame = view.bounds
-        
     }
 
+   
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 20
@@ -48,6 +52,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         return 1
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: CollectionTableViewCell.identifier, for: indexPath) as? CollectionTableViewCell{
             return cell
@@ -56,13 +61,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         return UITableViewCell()
     }
     
-   
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 300
-    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        return 200
     }
     
    
