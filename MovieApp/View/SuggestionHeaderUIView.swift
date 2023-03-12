@@ -12,11 +12,12 @@ class SuggestionHeaderUIView: UIView {
     private let playButton: UIButton = {
         let button = UIButton()
         button.setTitle("Play", for: .normal)
-        button.layer.borderColor = UIColor.label.cgColor
+        button.layer.borderColor = UIColor.white.cgColor
         button.layer.borderWidth = 2
         button.layer.cornerRadius = 10
+        button.setTitleColor(.white, for: .normal)
+        button.addTarget(self, action: #selector(playButtonPressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(.label, for: .normal)
 
         return button
     }()
@@ -29,22 +30,22 @@ class SuggestionHeaderUIView: UIView {
         return imageView
     }()
     
-    private let seperatorView: UIView = {
+   /* private let seperatorView: UIView = {
         let seperator = UIView()
         seperator.backgroundColor = .systemBackground
-        //seperator.clipsToBounds = true
         seperator.translatesAutoresizingMaskIntoConstraints = false
         
         return seperator
-    }()
+    }()*/
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(suggestionImageView)
-        addGradient()
+        //addGradient()
         addSubview(playButton)
-        addSubview(seperatorView)
+        //addSubview(seperatorView)
         setContsraints()
+       
     }
     
     required init?(coder: NSCoder) {
@@ -54,34 +55,33 @@ class SuggestionHeaderUIView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         suggestionImageView.frame = bounds
-       
     }
     
-    private func addGradient(){
-        let gradient = CAGradientLayer()
-        gradient.colors = [
-            UIColor.clear.cgColor,
-            UIColor.systemBackground.cgColor
-        ]
-        
-        gradient.frame = bounds
-        layer.addSublayer(gradient)
-    }
     
     private func setContsraints(){
         let playButtonContsraints = [
             playButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 160),
-            playButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -110),
+            playButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
             playButton.widthAnchor.constraint(equalToConstant: 100)
         ]
         
-        let seperatorConstraints = [
+        NSLayoutConstraint.activate(playButtonContsraints)
+        
+        
+        
+       /* let seperatorConstraints = [
             seperatorView.topAnchor.constraint(equalTo: suggestionImageView.bottomAnchor, constant: 0),
             seperatorView.widthAnchor.constraint(equalToConstant: bounds.width),
             seperatorView.heightAnchor.constraint(equalToConstant: 30)
         ]
         
-        NSLayoutConstraint.activate(playButtonContsraints)
-        NSLayoutConstraint.activate(seperatorConstraints)
+        NSLayoutConstraint.activate(seperatorConstraints)*/
+        
+    }
+    
+    @objc private func playButtonPressed(){
+        print("basıldı")
     }
 }
+
+
