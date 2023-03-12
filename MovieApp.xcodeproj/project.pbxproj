@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB6680BB29BDEBB800FD3E79 /* SuggestionHeaderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6680BA29BDEBB800FD3E79 /* SuggestionHeaderUIView.swift */; };
 		FB835A7129B7DC7E0050A22D /* CollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB835A7029B7DC7E0050A22D /* CollectionTableViewCell.swift */; };
 		FBEC04C329B4EBB8003A96D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEC04C229B4EBB8003A96D4 /* AppDelegate.swift */; };
 		FBEC04C529B4EBB8003A96D4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEC04C429B4EBB8003A96D4 /* SceneDelegate.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FB6680BA29BDEBB800FD3E79 /* SuggestionHeaderUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionHeaderUIView.swift; sourceTree = "<group>"; };
 		FB835A7029B7DC7E0050A22D /* CollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTableViewCell.swift; sourceTree = "<group>"; };
 		FBEC04BF29B4EBB8003A96D4 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBEC04C229B4EBB8003A96D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				FB835A7029B7DC7E0050A22D /* CollectionTableViewCell.swift */,
+				FB6680BA29BDEBB800FD3E79 /* SuggestionHeaderUIView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 				FBEC04C729B4EBB8003A96D4 /* MainTabBarViewController.swift in Sources */,
 				FBEC04C329B4EBB8003A96D4 /* AppDelegate.swift in Sources */,
 				FBEC04C529B4EBB8003A96D4 /* SceneDelegate.swift in Sources */,
+				FB6680BB29BDEBB800FD3E79 /* SuggestionHeaderUIView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

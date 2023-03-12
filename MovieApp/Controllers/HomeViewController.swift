@@ -29,7 +29,9 @@ class HomeViewController: UIViewController {
         
         movieTable.dataSource = self
         movieTable.delegate = self
-        movieTable.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 400))
+        let headerView = SuggestionHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 400))
+        movieTable.tableHeaderView = headerView
+        
     }
     
     override func viewDidLayoutSubviews() {
