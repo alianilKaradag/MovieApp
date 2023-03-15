@@ -28,6 +28,15 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         view.addSubview(movieTable)
+        APIManager.shared.getTrendingMovies { result in
+            switch result{
+            case .success(let movies):
+                print(movies)
+                
+            case.failure(let error):
+                print(error.localizedDescription)
+            }
+        }
         
         movieTable.dataSource = self
         movieTable.delegate = self

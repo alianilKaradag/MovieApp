@@ -16,7 +16,6 @@ class SuggestionHeaderUIView: UIView {
         button.layer.borderWidth = 2
         button.layer.cornerRadius = 10
         button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(playButtonPressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
 
         return button
@@ -30,20 +29,12 @@ class SuggestionHeaderUIView: UIView {
         return imageView
     }()
     
-   /* private let seperatorView: UIView = {
-        let seperator = UIView()
-        seperator.backgroundColor = .systemBackground
-        seperator.translatesAutoresizingMaskIntoConstraints = false
-        
-        return seperator
-    }()*/
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(suggestionImageView)
-        //addGradient()
         addSubview(playButton)
-        //addSubview(seperatorView)
+        playButton.addTarget(self, action: #selector(playButtonPressed), for: .touchUpInside)
+       
         setContsraints()
        
     }
@@ -66,20 +57,10 @@ class SuggestionHeaderUIView: UIView {
         ]
         
         NSLayoutConstraint.activate(playButtonContsraints)
-        
-        
-        
-       /* let seperatorConstraints = [
-            seperatorView.topAnchor.constraint(equalTo: suggestionImageView.bottomAnchor, constant: 0),
-            seperatorView.widthAnchor.constraint(equalToConstant: bounds.width),
-            seperatorView.heightAnchor.constraint(equalToConstant: 30)
-        ]
-        
-        NSLayoutConstraint.activate(seperatorConstraints)*/
-        
+     
     }
     
-    @objc private func playButtonPressed(){
+    @objc func playButtonPressed(){
         print("basıldı")
     }
 }
