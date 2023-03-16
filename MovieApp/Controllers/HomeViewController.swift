@@ -7,13 +7,14 @@
 
 import UIKit
 
+
 class HomeViewController: UIViewController {
     
-    let sectionTitles :[String] = ["Movies", "Tv Series", "Top Rated", "Upcoming"]
+    let sectionTitles :[String] = ["Movies", "Tv Series", "Top Rated Movies", "Upcoming Movies"]
     
     private let movieTable: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
-        table.register(CollectionTableViewCell.self, forCellReuseIdentifier: CollectionTableViewCell.identifier)
+        table.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.identifier)
         return table
     }()
     
@@ -28,15 +29,17 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         view.addSubview(movieTable)
-        APIManager.shared.getTrendingMovies { result in
+        
+        /*APIManager.shared.getMedia(mediaType: MediaType(rawValue: MediaType.RawValue(0)) ?? MediaType.Movie) { result in
             switch result{
-            case .success(let movies):
-                print(movies)
+            case .success(let medias):
+               print("medias")
                 
             case.failure(let error):
                 print(error.localizedDescription)
             }
-        }
+        }*/
+        
         
         movieTable.dataSource = self
         movieTable.delegate = self
@@ -67,11 +70,23 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: CollectionTableViewCell.identifier, for: indexPath) as? CollectionTableViewCell{
-            return cell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as? TableViewCell else {
+            return UITableViewCell()
         }
         
-        return UITableViewCell()
+        let sectionIndex = indexPath.section
+        APIManager.shared.getMedia(mediaType: MediaType(rawValue: MediaType.RawValue(sectionIndex)) ?? MediaType.Movie) { result in
+                
+            switch result{
+                case .success(let medias):
+                    cell.setMedias(medias: medias)
+                
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        
+        return cell
     }
     
     
@@ -95,9 +110,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         header.textLabel?.font = .systemFont(ofSize: 20, weight: .semibold)
         header.textLabel?.textColor = .label
         header.textLabel?.text = header.textLabel?.text?.localizedCapitalized
-        //header.textLabel?.transform = .init(translationX: header.bounds.origin.x + 150, y: 0)
-        //header.textLabel?.frame(forAlignmentRect: CGRect(x: header.bounds.origin.x + 150, y: 0, width: 10, height: 10))
-        //header.textLabel?.bounds = CGRect(x: 150, y: 0, width: 10, height: 10)
     }
     
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Movie: Decodable{
+struct Media: Decodable{
     let id: Int
     let title: String?
     let original_title: String?
@@ -16,6 +16,6 @@ struct Movie: Decodable{
     let overview: String?
 }
 
-struct TrendingMovieResponse: Decodable{
-    let results: [Movie]
+struct API_Results: Decodable{
+    let results: [Media]
 }

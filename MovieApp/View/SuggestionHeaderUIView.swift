@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class SuggestionHeaderUIView: UIView {
     
     private let playButton: UIButton = {
