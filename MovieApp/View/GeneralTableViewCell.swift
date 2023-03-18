@@ -7,9 +7,9 @@
 
 import UIKit
 
-class SearchTableViewCell: UITableViewCell {
+class GeneralTableViewCell: UITableViewCell {
 
-   static let identifier = "searchTableViewCell"
+   static let identifier = "generalTableViewCell"
     
     private let cellImageView: UIImageView = {
         let cellImage = UIImageView()
@@ -39,9 +39,9 @@ class SearchTableViewCell: UITableViewCell {
     private func setConstraints(){
         let cellImageViewConstraints = [
             cellImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            cellImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 50),
-            cellImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -50),
-            cellImageView.widthAnchor.constraint(equalToConstant: 90),
+            cellImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            cellImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            cellImageView.widthAnchor.constraint(equalToConstant: 90)
             
         ]
         
@@ -51,18 +51,19 @@ class SearchTableViewCell: UITableViewCell {
             cellLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         
         ]
+        
         NSLayoutConstraint.activate(cellImageViewConstraints)
         NSLayoutConstraint.activate(cellLabelConstraints)
     }
     
-    public func setContents(_ contents: MediaViewModel){
-        guard let url = URL(string: "\(Constants.posterBaseUrl)\(contents.posterPath)") else {
-            print("image url creation error")
+    public func setContents(_ mediaModel: MediaViewModel){
+        guard let url = URL(string: "\(Constants.posterBaseUrl)\(mediaModel.posterPath)") else {
+        
             return
         }
             
         cellImageView.kf.setImage(with: url)
-        cellLabel.text = contents.name
+        cellLabel.text = mediaModel.name
     }
     
 }

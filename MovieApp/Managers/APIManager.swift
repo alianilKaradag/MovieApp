@@ -43,7 +43,7 @@ class APIManager{
         
         AF.request(urlString).validate().responseDecodable(of: API_Results.self) { (response) in
             guard let result = response.value else{
-                print(response.debugDescription)
+                
                 completion(.failure(APIError.failedToFetch))
                 return
             }
@@ -53,12 +53,30 @@ class APIManager{
         
     }
     
-    func searchMedia(completion: @escaping (Result<[Media], Error>) -> Void){
+    func getDiscoverMedia(completion: @escaping (Result<[Media], Error>) -> Void){
         let urlString = "\(Constants.baseUrl)discover/movie?&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate&api_key=\(Constants.apiKey)"
        
         AF.request(urlString).validate().responseDecodable(of: API_Results.self) { (response) in
             guard let result = response.value else{
-                print(response.debugDescription)
+                
+                completion(.failure(APIError.failedToFetch))
+                return
+            }
+            
+            completion(.success(result.results))
+        }
+        
+    }
+    
+    func search(_ query: String = "Into The Wild", completion: @escaping (Result<[Media], Error>) -> Void){
+        
+        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return}
+        
+        let urlString = "\(Constants.baseUrl)search/movie?api_key=\(Constants.apiKey)&query=\(query)"
+       
+        AF.request(urlString).validate().responseDecodable(of: API_Results.self) { (response) in
+            guard let result = response.value else{
+                
                 completion(.failure(APIError.failedToFetch))
                 return
             }

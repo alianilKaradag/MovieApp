@@ -8,7 +8,7 @@
 import UIKit
 
 
-class HomeViewController: UIViewController {
+class HomeVC: UIViewController {
     
     let sectionTitles :[String] = ["Movies", "Tv Series", "Top Rated Movies", "Upcoming Movies"]
     
@@ -30,7 +30,7 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(movieTable)
         
-        let headerView = SuggestionHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 400))
+        let headerView = SuggestionHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 500))
         movieTable.tableHeaderView = headerView
         
         setDelegates()
@@ -50,7 +50,7 @@ class HomeViewController: UIViewController {
    
 }
 
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
+extension HomeVC: UITableViewDelegate, UITableViewDataSource{
     
     
     func numberOfSections(in tableView: UITableView) -> Int {

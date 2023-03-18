@@ -26,6 +26,7 @@ class SuggestionHeaderUIView: UIView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "suggestionImage")
         return imageView
     }()
@@ -52,9 +53,10 @@ class SuggestionHeaderUIView: UIView {
     
     private func setContsraints(){
         let playButtonContsraints = [
-            playButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 160),
-            playButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
-            playButton.widthAnchor.constraint(equalToConstant: 100)
+            //playButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 160),
+            playButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60),
+            playButton.widthAnchor.constraint(equalToConstant: 150),
+            playButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0)
         ]
         
         NSLayoutConstraint.activate(playButtonContsraints)

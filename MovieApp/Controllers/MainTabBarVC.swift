@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainTabBarViewController: UITabBarController {
+class MainTabBarVC: UITabBarController {
 
     
     override func viewDidLoad() {
@@ -18,8 +18,8 @@ class MainTabBarViewController: UITabBarController {
     
     func setupViewControllers() {
           viewControllers = [
-            createNavigationController(HomeViewController(), title: "Home", UIImage(systemName:"house")!),
-            createNavigationController(SearchViewController(), title: "Search", UIImage(systemName:"magnifyingglass")!)
+            createNavigationController(HomeVC(), title: "Home", UIImage(systemName:"house")!),
+            createNavigationController(SearchVC(), title: "Search", UIImage(systemName:"magnifyingglass")!)
           ]
       }
     

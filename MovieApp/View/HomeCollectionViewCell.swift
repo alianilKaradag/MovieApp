@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-class MediaCollectionViewCell: UICollectionViewCell{
+class HomeCollectionViewCell: UICollectionViewCell{
     
     static let identifier = "mediaCollectionViewCell"
     
