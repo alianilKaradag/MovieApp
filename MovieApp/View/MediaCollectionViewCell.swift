@@ -34,7 +34,7 @@ class MediaCollectionViewCell: UICollectionViewCell{
     }
     
     func setImage(_ posterPath: String){
-        guard let url = URL(string: "https://image.tmdb.org/t/p/w500/\(posterPath)") else {
+        guard let url = URL(string: "\(Constants.posterBaseUrl)\(posterPath)") else {
             print("image url creation error")
             return
         }

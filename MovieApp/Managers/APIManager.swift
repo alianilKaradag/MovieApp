@@ -23,7 +23,6 @@ enum MediaType: Int{
 class APIManager{
     static let shared = APIManager()
     
-    
     func getMedia(mediaType:MediaType,completion: @escaping (Result<[Media], Error>) -> Void){
         
         let mediaType :String = {
@@ -39,8 +38,24 @@ class APIManager{
             }
         }()
         
-        let urlString = "\(Constants.baseUrl)/3/\(mediaType)?api_key=\(Constants.apiKey)"
+        let urlString = "\(Constants.baseUrl)\(mediaType)?api_key=\(Constants.apiKey)"
         
+        
+        AF.request(urlString).validate().responseDecodable(of: API_Results.self) { (response) in
+            guard let result = response.value else{
+                print(response.debugDescription)
+                completion(.failure(APIError.failedToFetch))
+                return
+            }
+            
+            completion(.success(result.results))
+        }
+        
+    }
+    
+    func searchMedia(completion: @escaping (Result<[Media], Error>) -> Void){
+        let urlString = "\(Constants.baseUrl)discover/movie?&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate&api_key=\(Constants.apiKey)"
+       
         AF.request(urlString).validate().responseDecodable(of: API_Results.self) { (response) in
             guard let result = response.value else{
                 print(response.debugDescription)

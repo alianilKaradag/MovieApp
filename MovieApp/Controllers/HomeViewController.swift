@@ -14,7 +14,7 @@ class HomeViewController: UIViewController {
     
     private let movieTable: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
-        table.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.identifier)
+        table.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.identifier)
         return table
     }()
     
@@ -30,21 +30,10 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(movieTable)
         
-        /*APIManager.shared.getMedia(mediaType: MediaType(rawValue: MediaType.RawValue(0)) ?? MediaType.Movie) { result in
-            switch result{
-            case .success(let medias):
-               print("medias")
-                
-            case.failure(let error):
-                print(error.localizedDescription)
-            }
-        }*/
-        
-        
-        movieTable.dataSource = self
-        movieTable.delegate = self
         let headerView = SuggestionHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 400))
         movieTable.tableHeaderView = headerView
+        
+        setDelegates()
         
     }
     
@@ -54,6 +43,10 @@ class HomeViewController: UIViewController {
         movieTable.frame = view.bounds
     }
 
+    private func setDelegates(){
+        movieTable.dataSource = self
+        movieTable.delegate = self
+    }
    
 }
 
@@ -70,7 +63,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as? TableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as? HomeTableViewCell else {
             return UITableViewCell()
         }
         
@@ -79,7 +72,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 
             switch result{
                 case .success(let medias):
+                DispatchQueue.main.async {
                     cell.setMedias(medias: medias)
+                }
+                
                 
                 case .failure(let error):
                     print(error.localizedDescription)

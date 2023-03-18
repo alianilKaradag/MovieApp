@@ -8,7 +8,7 @@
 import UIKit
 
 
-class TableViewCell: UITableViewCell {
+class HomeTableViewCell: UITableViewCell {
 
     static let identifier = "tableViewCell"
     
@@ -57,7 +57,7 @@ class TableViewCell: UITableViewCell {
 
 }
 
-extension TableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+extension HomeTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return medias.count

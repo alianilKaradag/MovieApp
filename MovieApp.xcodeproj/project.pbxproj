@@ -11,8 +11,10 @@
 		FB19B96429C26A1200219583 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19B96329C26A1200219583 /* Constants.swift */; };
 		FB19B96729C26F3300219583 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = FB19B96629C26F3300219583 /* Alamofire */; };
 		FB19B96929C2735500219583 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB19B96829C2735500219583 /* Media.swift */; };
+		FB434CED29C4F3060048FC36 /* MediaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB434CEC29C4F3060048FC36 /* MediaViewModel.swift */; };
+		FB434CEF29C4F7A60048FC36 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB434CEE29C4F7A60048FC36 /* SearchTableViewCell.swift */; };
 		FB6680BB29BDEBB800FD3E79 /* SuggestionHeaderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6680BA29BDEBB800FD3E79 /* SuggestionHeaderUIView.swift */; };
-		FB835A7129B7DC7E0050A22D /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB835A7029B7DC7E0050A22D /* TableViewCell.swift */; };
+		FB835A7129B7DC7E0050A22D /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB835A7029B7DC7E0050A22D /* HomeTableViewCell.swift */; };
 		FBEC04C329B4EBB8003A96D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEC04C229B4EBB8003A96D4 /* AppDelegate.swift */; };
 		FBEC04C529B4EBB8003A96D4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEC04C429B4EBB8003A96D4 /* SceneDelegate.swift */; };
 		FBEC04C729B4EBB8003A96D4 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEC04C629B4EBB8003A96D4 /* MainTabBarViewController.swift */; };
@@ -20,7 +22,6 @@
 		FBEC04CF29B4EBB9003A96D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBEC04CD29B4EBB9003A96D4 /* LaunchScreen.storyboard */; };
 		FBEC04DA29B4F0BC003A96D4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEC04D929B4F0BC003A96D4 /* SearchViewController.swift */; };
 		FBEC04DC29B4F285003A96D4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBEC04DB29B4F285003A96D4 /* HomeViewController.swift */; };
-		FBF1A51429C3AF1200458613 /* Extension+.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF1A51329C3AF1200458613 /* Extension+.swift */; };
 		FBF1A51729C3B59F00458613 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = FBF1A51629C3B59F00458613 /* Kingfisher */; };
 		FBF1A51929C3B8F200458613 /* MediaCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF1A51829C3B8F200458613 /* MediaCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -29,8 +30,10 @@
 		FB19B96129C269C300219583 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		FB19B96329C26A1200219583 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FB19B96829C2735500219583 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
+		FB434CEC29C4F3060048FC36 /* MediaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewModel.swift; sourceTree = "<group>"; };
+		FB434CEE29C4F7A60048FC36 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		FB6680BA29BDEBB800FD3E79 /* SuggestionHeaderUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionHeaderUIView.swift; sourceTree = "<group>"; };
-		FB835A7029B7DC7E0050A22D /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		FB835A7029B7DC7E0050A22D /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		FBEC04BF29B4EBB8003A96D4 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBEC04C229B4EBB8003A96D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBEC04C429B4EBB8003A96D4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -40,7 +43,6 @@
 		FBEC04D029B4EBB9003A96D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBEC04D929B4F0BC003A96D4 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		FBEC04DB29B4F285003A96D4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		FBF1A51329C3AF1200458613 /* Extension+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+.swift"; sourceTree = "<group>"; };
 		FBF1A51829C3B8F200458613 /* MediaCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,9 +79,10 @@
 		FB835A6E29B7DBB10050A22D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FB835A7029B7DC7E0050A22D /* TableViewCell.swift */,
+				FB835A7029B7DC7E0050A22D /* HomeTableViewCell.swift */,
 				FBF1A51829C3B8F200458613 /* MediaCollectionViewCell.swift */,
 				FB6680BA29BDEBB800FD3E79 /* SuggestionHeaderUIView.swift */,
+				FB434CEE29C4F7A60048FC36 /* SearchTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -87,6 +90,7 @@
 		FB835A6F29B7DBBC0050A22D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				FB434CEC29C4F3060048FC36 /* MediaViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -120,7 +124,6 @@
 				FBEC04CB29B4EBB9003A96D4 /* Assets.xcassets */,
 				FBEC04CD29B4EBB9003A96D4 /* LaunchScreen.storyboard */,
 				FBEC04D029B4EBB9003A96D4 /* Info.plist */,
-				FBF1A51329C3AF1200458613 /* Extension+.swift */,
 			);
 			path = MovieApp;
 			sourceTree = "<group>";
@@ -213,18 +216,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB434CED29C4F3060048FC36 /* MediaViewModel.swift in Sources */,
 				FB19B96229C269C300219583 /* APIManager.swift in Sources */,
 				FBEC04DC29B4F285003A96D4 /* HomeViewController.swift in Sources */,
-				FB835A7129B7DC7E0050A22D /* TableViewCell.swift in Sources */,
+				FB835A7129B7DC7E0050A22D /* HomeTableViewCell.swift in Sources */,
 				FBEC04DA29B4F0BC003A96D4 /* SearchViewController.swift in Sources */,
 				FB19B96929C2735500219583 /* Media.swift in Sources */,
 				FBEC04C729B4EBB8003A96D4 /* MainTabBarViewController.swift in Sources */,
-				FBF1A51429C3AF1200458613 /* Extension+.swift in Sources */,
 				FBF1A51929C3B8F200458613 /* MediaCollectionViewCell.swift in Sources */,
 				FBEC04C329B4EBB8003A96D4 /* AppDelegate.swift in Sources */,
 				FBEC04C529B4EBB8003A96D4 /* SceneDelegate.swift in Sources */,
 				FB6680BB29BDEBB800FD3E79 /* SuggestionHeaderUIView.swift in Sources */,
 				FB19B96429C26A1200219583 /* Constants.swift in Sources */,
+				FB434CEF29C4F7A60048FC36 /* SearchTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +367,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 534AP7GJUB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MovieApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -390,6 +395,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 534AP7GJUB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MovieApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
