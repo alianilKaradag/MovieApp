@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct Media: Decodable{
+struct TmdbResult: Decodable{
+    let results: [TmdbMedia]
+}
+
+struct TmdbMedia: Decodable{
     let id: Int
     let title: String?
     let original_title: String?
@@ -16,6 +20,4 @@ struct Media: Decodable{
     let overview: String?
 }
 
-struct API_Results: Decodable{
-    let results: [Media]
-}
+

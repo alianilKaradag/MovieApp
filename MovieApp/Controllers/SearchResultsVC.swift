@@ -9,7 +9,7 @@ import UIKit
 
 class SearchResultsVC: UIViewController {
     
-    private var medias = [Media]()
+    private var tmdbMedias = [TmdbMedia]()
     
     private let resultTableView: UITableView = {
        
@@ -37,8 +37,8 @@ class SearchResultsVC: UIViewController {
         resultTableView.dataSource = self
     }
     
-    public func setMedias(_ medias: [Media]){
-        self.medias = medias
+    public func setMedias(_ medias: [TmdbMedia]){
+        self.tmdbMedias = medias
         resultTableView.reloadData()
     }
     
@@ -46,7 +46,7 @@ class SearchResultsVC: UIViewController {
 
 extension SearchResultsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return medias.count
+        return tmdbMedias.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -54,8 +54,8 @@ extension SearchResultsVC: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
        
-        let media = medias[indexPath.row]
-        let content = MediaViewModel(name: media.title ?? media.original_name ?? media.original_title ?? " ", posterPath: media.poster_path ?? " ")
+        let media = tmdbMedias[indexPath.row]
+        let content = TmdbMediaViewModel(name: media.title ?? media.original_name ?? media.original_title ?? " ", posterPath: media.poster_path ?? " ")
         cell.setContents(content)
         return cell
     }

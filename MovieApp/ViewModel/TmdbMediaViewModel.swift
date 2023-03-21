@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MediaViewModel{
+struct TmdbMediaViewModel{
     let name: String
     let posterPath: String
 }

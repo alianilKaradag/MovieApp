@@ -9,7 +9,7 @@ import UIKit
 
 class SearchVC: UIViewController {
     
-    private var medias = [Media]()
+    private var tmdbMedias = [TmdbMedia]()
     
     private let searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: SearchResultsVC())
@@ -38,7 +38,6 @@ class SearchVC: UIViewController {
         discoverMedias()
         navigationItem.searchController = searchController
         
-        
     }
     
     
@@ -54,10 +53,10 @@ class SearchVC: UIViewController {
     }
     
     private func discoverMedias(){
-        APIManager.shared.getDiscoverMedia { [weak self] results in
+        APIManager.shared.fillSearchVCTrends { [weak self] results in
             switch results{
             case .success(let resultMedia):
-                self?.medias = resultMedia
+                self?.tmdbMedias = resultMedia
                 DispatchQueue.main.async {
                     self?.searchTable.reloadData()
                 }
@@ -66,6 +65,7 @@ class SearchVC: UIViewController {
                 print(error.localizedDescription)
             }
         }
+       
     }
     
 }
@@ -81,7 +81,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource, UISearchResultsU
               query.trimmingCharacters(in: .whitespaces).count >= 3,
               let resultController = searchController.searchResultsController as? SearchResultsVC else {return}
         
-        APIManager.shared.search(query) { results in
+        APIManager.shared.searchForTmdb(query) { results in
             DispatchQueue.main.async {
                 switch results{
                 case .success(let medias):
@@ -97,7 +97,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource, UISearchResultsU
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return medias.count
+        return tmdbMedias.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -106,8 +106,8 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource, UISearchResultsU
             return UITableViewCell()
         }
         
-        let media = medias[indexPath.row]
-        let content = MediaViewModel(name: media.original_name ?? media.original_title ?? "?", posterPath: media.poster_path ?? "?")
+        let media = tmdbMedias[indexPath.row]
+        let content = TmdbMediaViewModel(name: media.original_name ?? media.original_title ?? "?", posterPath: media.poster_path ?? "?")
         cell.setContents(content)
         return cell
     }

@@ -24,7 +24,7 @@ class HomeVC: UIViewController {
         navigationController?.navigationBar.topItem?.title = "Home"
         
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -34,7 +34,6 @@ class HomeVC: UIViewController {
         movieTable.tableHeaderView = headerView
         
         setDelegates()
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -42,12 +41,13 @@ class HomeVC: UIViewController {
         self.movieTable.sectionFooterHeight = 20
         movieTable.frame = view.bounds
     }
-
+    
     private func setDelegates(){
         movieTable.dataSource = self
         movieTable.delegate = self
+        
     }
-   
+    
 }
 
 extension HomeVC: UITableViewDelegate, UITableViewDataSource{
@@ -68,19 +68,20 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource{
         }
         
         let sectionIndex = indexPath.section
-        APIManager.shared.getMedia(mediaType: MediaType(rawValue: MediaType.RawValue(sectionIndex)) ?? MediaType.Movie) { result in
-                
+        APIManager.shared.fetchTmdbMedia(mediaType: MediaType(rawValue: MediaType.RawValue(sectionIndex)) ?? MediaType.Movie) { result in
+            
             switch result{
-                case .success(let medias):
+            case .success(let medias):
                 DispatchQueue.main.async {
                     cell.setMedias(medias: medias)
                 }
                 
-                
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
+            case .failure(let error):
+                print(error.localizedDescription)
             }
+        }
+        
+        cell.delegate = self
         
         return cell
     }
@@ -107,5 +108,16 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource{
         header.textLabel?.textColor = .label
         header.textLabel?.text = header.textLabel?.text?.localizedCapitalized
     }
+    
+}
+
+extension HomeVC: HomeTableViewCellDelegate{
+    
+    func homeTableViewCellDidTapCell(_ cell: HomeTableViewCell, viewModel: TrailerViewModel) {
+        let trailerVC = TrailerVC()
+        trailerVC.setContent(viewModel)
+        self.navigationController?.pushViewController(trailerVC, animated: true)
+    }
+    
     
 }

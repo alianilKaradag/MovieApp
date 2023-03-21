@@ -56,8 +56,8 @@ class GeneralTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate(cellLabelConstraints)
     }
     
-    public func setContents(_ mediaModel: MediaViewModel){
-        guard let url = URL(string: "\(Constants.posterBaseUrl)\(mediaModel.posterPath)") else {
+    public func setContents(_ mediaModel: TmdbMediaViewModel){
+        guard let url = URL(string: "\(Constants.tmdbPosterBaseUrl)\(mediaModel.posterPath)") else {
         
             return
         }

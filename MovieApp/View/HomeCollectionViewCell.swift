@@ -34,7 +34,7 @@ class HomeCollectionViewCell: UICollectionViewCell{
     }
     
     func setImage(_ posterPath: String){
-        guard let url = URL(string: "\(Constants.posterBaseUrl)\(posterPath)") else {
+        guard let url = URL(string: "\(Constants.tmdbPosterBaseUrl)\(posterPath)") else {
             print("image url creation error")
             return
         }
