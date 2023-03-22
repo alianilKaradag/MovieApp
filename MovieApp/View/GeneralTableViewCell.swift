@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class GeneralTableViewCell: UITableViewCell {
 
    static let identifier = "generalTableViewCell"
@@ -56,14 +57,13 @@ class GeneralTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate(cellLabelConstraints)
     }
     
-    public func setContents(_ mediaModel: TmdbMediaViewModel){
-        guard let url = URL(string: "\(Constants.tmdbPosterBaseUrl)\(mediaModel.posterPath)") else {
-        
+    public func setContents(_ tmdbMediaViewModel: TmdbMediaViewModel){
+        guard let url = URL(string: "\(Constants.tmdbPosterBaseUrl)\(tmdbMediaViewModel.posterPath)") else {
             return
         }
             
         cellImageView.kf.setImage(with: url)
-        cellLabel.text = mediaModel.name
+        cellLabel.text = tmdbMediaViewModel.name
     }
     
 }

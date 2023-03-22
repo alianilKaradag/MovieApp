@@ -13,7 +13,6 @@ class TrailerVC: UIViewController {
     private let webView: WKWebView = {
        let webView = WKWebView()
         webView.translatesAutoresizingMaskIntoConstraints = false
-        webView.backgroundColor = .black
         return webView
     }()
     
@@ -46,15 +45,15 @@ class TrailerVC: UIViewController {
         return button
     }()
     
-    private let dislikeButton: UIButton = {
-       let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        let buttonConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .light, scale: .default)
-        let buttonImage = UIImage(systemName: "hand.thumbsdown", withConfiguration: buttonConfig)
-        button.setImage(buttonImage, for: .normal)
-        button.tintColor = .label
-        return button
-    }()
+    //private let dislikeButton: UIButton = {
+    //   let button = UIButton()
+    //    button.translatesAutoresizingMaskIntoConstraints = false
+    //    let buttonConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .light, scale: .default)
+    //    let buttonImage = UIImage(systemName: "hand.thumbsdown", withConfiguration: buttonConfig)
+    //    button.setImage(buttonImage, for: .normal)
+    //    button.tintColor = .label
+    //    return button
+    //}()
     
     
     override func viewDidLoad() {
@@ -64,16 +63,21 @@ class TrailerVC: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(overViewLabel)
         view.addSubview(likeButton)
-        view.addSubview(dislikeButton)
+        //view.addSubview(dislikeButton)
         
         setConstraints()
         print(view.bounds.height)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        navigationController?.navigationBar.tintColor = .label
+    }
+    
     func setConstraints(){
         let webViewConstraints = [
             webView.heightAnchor.constraint(equalToConstant: view.bounds.height * 0.4),
-            webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ]
@@ -95,16 +99,16 @@ class TrailerVC: UIViewController {
             likeButton.centerXAnchor.constraint(equalTo: view.leadingAnchor, constant: 30)
         ]
         
-        let dislikeButtonConstraints = [
-            dislikeButton.centerYAnchor.constraint(equalTo: overViewLabel.bottomAnchor, constant: 50),
-            dislikeButton.centerXAnchor.constraint(equalTo: likeButton.trailingAnchor, constant: 60)
-        ]
+        //let dislikeButtonConstraints = [
+        //    dislikeButton.centerYAnchor.constraint(equalTo: overViewLabel.bottomAnchor, constant: 50),
+        //    dislikeButton.centerXAnchor.constraint(equalTo: likeButton.trailingAnchor, constant: 60)
+        //]
         
         NSLayoutConstraint.activate(webViewConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(overViewLabelConstraints)
         NSLayoutConstraint.activate(likeButtonConstraints)
-        NSLayoutConstraint.activate(dislikeButtonConstraints)
+       //NSLayoutConstraint.activate(dislikeButtonConstraints)
     }
 
     

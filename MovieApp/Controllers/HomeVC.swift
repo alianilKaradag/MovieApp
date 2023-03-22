@@ -11,6 +11,14 @@ import UIKit
 class HomeVC: UIViewController {
     
     let sectionTitles :[String] = ["Movies", "Tv Series", "Top Rated Movies", "Upcoming Movies"]
+    var suggestionMovie: TmdbMedia?
+    
+    
+    let suggestionHeaderView: SuggestionHeaderUIView = {
+        let headerView = SuggestionHeaderUIView(frame: .zero)
+        
+        return headerView
+    }()
     
     private let movieTable: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
@@ -30,22 +38,37 @@ class HomeVC: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(movieTable)
         
-        let headerView = SuggestionHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 500))
-        movieTable.tableHeaderView = headerView
-        
+        movieTable.tableHeaderView = suggestionHeaderView
         setDelegates()
+        setSuggestion()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.movieTable.sectionFooterHeight = 20
         movieTable.frame = view.bounds
+        suggestionHeaderView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 500)
     }
     
     private func setDelegates(){
         movieTable.dataSource = self
         movieTable.delegate = self
+        suggestionHeaderView.delegate = self
+    }
+    
+    func setSuggestion(){
         
+        APIManager.shared.searchForTmdb(Constants.suggestionMovieName) { response in
+            switch response {
+            case .success(let result):
+                DispatchQueue.main.async {
+                    self.suggestionMovie = TmdbMedia(id: result[0].id, title: result[0].title, original_title: result[0].original_title, original_name: result[0].original_name, poster_path: result[0].poster_path, overview: result[0].overview)
+                    self.suggestionHeaderView.setContent(self.suggestionMovie!)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
 }
@@ -68,9 +91,9 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource{
         }
         
         let sectionIndex = indexPath.section
-        APIManager.shared.fetchTmdbMedia(mediaType: MediaType(rawValue: MediaType.RawValue(sectionIndex)) ?? MediaType.Movie) { result in
+        APIManager.shared.fetchTmdbMedia(mediaType: MediaType(rawValue: MediaType.RawValue(sectionIndex)) ?? MediaType.Movie) { response in
             
-            switch result{
+            switch response{
             case .success(let medias):
                 DispatchQueue.main.async {
                     cell.setMedias(medias: medias)
@@ -117,6 +140,29 @@ extension HomeVC: HomeTableViewCellDelegate{
         let trailerVC = TrailerVC()
         trailerVC.setContent(viewModel)
         self.navigationController?.pushViewController(trailerVC, animated: true)
+    }
+    
+}
+
+extension HomeVC: SuggestionViewPlayButtonDelegate{
+    func suggestionViewPlayButtonPressed(viewModel: TrailerViewModel) {
+        let title = suggestionMovie!.title ?? suggestionMovie!.original_title ?? suggestionMovie!.original_name ?? "Whiplash"
+
+        APIManager.shared.searchForYoutube("\(title) + official trailer") { [weak self] response in
+            switch response {
+            case .success(let result):
+                DispatchQueue.main.async {
+                    guard let strongSelf = self else {return}
+                    let trailerVC = TrailerVC()
+                    let trailerVM = TrailerViewModel(title: title, youtubeView: result, titlerOverView: strongSelf.suggestionMovie!.overview ?? "")
+                    trailerVC.setContent(trailerVM)
+                    strongSelf.navigationController?.pushViewController(trailerVC, animated: true)
+                }
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     

@@ -53,8 +53,8 @@ class SearchVC: UIViewController {
     }
     
     private func discoverMedias(){
-        APIManager.shared.fillSearchVCTrends { [weak self] results in
-            switch results{
+        APIManager.shared.fillSearchVCTrends { [weak self] response in
+            switch response{
             case .success(let resultMedia):
                 self?.tmdbMedias = resultMedia
                 DispatchQueue.main.async {
@@ -65,7 +65,7 @@ class SearchVC: UIViewController {
                 print(error.localizedDescription)
             }
         }
-       
+        
     }
     
 }
@@ -81,9 +81,11 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource, UISearchResultsU
               query.trimmingCharacters(in: .whitespaces).count >= 3,
               let resultController = searchController.searchResultsController as? SearchResultsVC else {return}
         
-        APIManager.shared.searchForTmdb(query) { results in
+        resultController.delegate = self
+        
+        APIManager.shared.searchForTmdb(query) { response in
             DispatchQueue.main.async {
-                switch results{
+                switch response{
                 case .success(let medias):
                     resultController.setMedias(medias)
                 case .failure(let error):
@@ -115,5 +117,41 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource, UISearchResultsU
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        searchTable.deselectRow(at: indexPath, animated: true)
+        
+        let tmdbMedia = tmdbMedias[indexPath.row]
+        guard let tmdbMediaName = tmdbMedia.original_title ?? tmdbMedia.original_name ?? tmdbMedia.original_title else {return}
+        guard let tmdbMediaOverview = tmdbMedia.overview else {return}
+        
+        APIManager.shared.searchForYoutube(tmdbMediaName + " official trailer") { [weak self] response in
+            
+            switch response {
+            case .success(let result):
+                DispatchQueue.main.async {
+                    let trailerViewModel = TrailerViewModel(title: tmdbMediaName, youtubeView: result, titlerOverView: tmdbMediaOverview)
+                    guard let strongSelf = self else {return}
+                    let trailerVC = TrailerVC()
+                    trailerVC.setContent(trailerViewModel)
+                    strongSelf.navigationController?.pushViewController(trailerVC, animated: true)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+            
+        }
+    }
+    
+}
+
+extension SearchVC: SearchResultPressedDelegate{
+    func searchResultPressed(_ trailerViewModel: TrailerViewModel) {
+        let trailerVC = TrailerVC()
+        trailerVC.setContent(trailerViewModel)
+        self.navigationController?.pushViewController(trailerVC, animated: true)
+        
+    }
+    
     
 }

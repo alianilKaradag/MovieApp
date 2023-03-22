@@ -59,6 +59,7 @@ class HomeTableViewCell: UITableViewCell {
         }
     }
     
+   
     
 }
 
@@ -88,9 +89,9 @@ extension HomeTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
         guard let tmdbMediaName = tmdbMedia.original_title ?? tmdbMedia.original_name ?? tmdbMedia.original_title else {return}
         guard let tmdbMediaOverview = tmdbMedia.overview else {return}
         
-        APIManager.shared.searchForYoutube(tmdbMediaName + " official trailer") { [weak self] result in
+        APIManager.shared.searchForYoutube(tmdbMediaName + " official trailer") { [weak self] response in
             
-            switch result {
+            switch response {
             case .success(let result):
                 DispatchQueue.main.async {
                     let trailerViewModel = TrailerViewModel(title: tmdbMediaName, youtubeView: result, titlerOverView: tmdbMediaOverview)

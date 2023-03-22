@@ -7,8 +7,15 @@
 
 import UIKit
 
+protocol SuggestionViewPlayButtonDelegate: AnyObject {
+    func suggestionViewPlayButtonPressed(viewModel: TrailerViewModel)
+}
 
 class SuggestionHeaderUIView: UIView {
+    
+    private var suggestionMovie: TmdbMedia?
+    
+    weak var delegate: SuggestionViewPlayButtonDelegate?
     
     private let playButton: UIButton = {
         let button = UIButton()
@@ -27,7 +34,7 @@ class SuggestionHeaderUIView: UIView {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "suggestionImage")
+        //imageView.image = UIImage(named: "suggestionImage")
         return imageView
     }()
     
@@ -53,7 +60,6 @@ class SuggestionHeaderUIView: UIView {
     
     private func setContsraints(){
         let playButtonContsraints = [
-            //playButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 160),
             playButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60),
             playButton.widthAnchor.constraint(equalToConstant: 150),
             playButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0)
@@ -63,8 +69,26 @@ class SuggestionHeaderUIView: UIView {
      
     }
     
+    func setContent(_ tmdbMedia: TmdbMedia){
+        guard let url = URL(string: "\(Constants.tmdbPosterBaseUrl)\(tmdbMedia.poster_path ?? " ")") else { return }
+        suggestionImageView.kf.setImage(with: url)
+        suggestionMovie = tmdbMedia
+    }
+    
+    
     @objc func playButtonPressed(){
-        print("basıldı")
+        guard let suggestionMovie = self.suggestionMovie else {return}
+        
+        APIManager.shared.searchForYoutube("\(Constants.suggestionMovieName) official trailer") { response in
+            switch response{
+            case .success(let result):
+                let trailerViewModel = TrailerViewModel(title: Constants.suggestionMovieName, youtubeView: result, titlerOverView: suggestionMovie.overview ?? "")
+                self.delegate?.suggestionViewPlayButtonPressed(viewModel: trailerViewModel)
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 

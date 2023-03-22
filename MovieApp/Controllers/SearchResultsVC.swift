@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol SearchResultPressedDelegate: AnyObject{
+    func searchResultPressed(_ trailerViewModel: TrailerViewModel)
+}
+
 class SearchResultsVC: UIViewController {
+    
+    weak var delegate: SearchResultPressedDelegate?
     
     private var tmdbMedias = [TmdbMedia]()
     
@@ -62,6 +68,26 @@ extension SearchResultsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        resultTableView.deselectRow(at: indexPath, animated: true)
+        let tmdbMedia = tmdbMedias[indexPath.row]
+        let title = tmdbMedia.original_title ?? tmdbMedia.title ?? tmdbMedia.original_name ?? ""
+        let overView = tmdbMedia.overview ?? ""
+        
+        APIManager.shared.searchForYoutube("\(title) official trailer") { [weak self] response in
+            switch response{
+            case .success(let result):
+                let trailerVM = TrailerViewModel(title: title, youtubeView: result, titlerOverView: overView)
+                self?.delegate?.searchResultPressed(trailerVM)
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
+        
     }
     
 }

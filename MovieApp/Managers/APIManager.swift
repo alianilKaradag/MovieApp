@@ -76,7 +76,6 @@ class APIManager{
        
         AF.request(urlString).validate().responseDecodable(of: TmdbResult.self) { (response) in
             guard let result = response.value else{
-                
                 completion(.failure(APIError.failedToFetch))
                 return
             }
