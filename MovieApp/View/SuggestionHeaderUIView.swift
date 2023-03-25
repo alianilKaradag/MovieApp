@@ -77,6 +77,8 @@ class SuggestionHeaderUIView: UIView {
     
     
     @objc func playButtonPressed(){
+        
+        buttonClickAnim(playButton)
         guard let suggestionMovie = self.suggestionMovie else {return}
         guard let poster_path = suggestionMovie.poster_path else { return }
         
@@ -90,6 +92,18 @@ class SuggestionHeaderUIView: UIView {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func buttonClickAnim(_ button: UIButton){
+        UIView.animate(withDuration: 0.05,
+            animations: {
+                button.transform = CGAffineTransform(scaleX: 0.98, y: 0.98)
+            },
+            completion: { _ in
+                UIView.animate(withDuration: 0.05) {
+                    button.transform = CGAffineTransform.identity
+                }
+            })
     }
 }
 
