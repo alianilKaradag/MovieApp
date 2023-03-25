@@ -45,6 +45,7 @@ class APIManager{
             guard let result = response.value else{
                 
                 completion(.failure(APIError.failedToFetch))
+                print("API Keyleri girilmemiş olabilir :)")
                 return
             }
             
@@ -60,6 +61,7 @@ class APIManager{
             guard let result = response.value else{
                 
                 completion(.failure(APIError.failedToFetch))
+                print("API Keyleri girilmemiş olabilir :)")
                 return
             }
             
@@ -77,6 +79,7 @@ class APIManager{
         AF.request(urlString).validate().responseDecodable(of: TmdbResult.self) { (response) in
             guard let result = response.value else{
                 completion(.failure(APIError.failedToFetch))
+                print("API Keyleri girilmemiş olabilir :)")
                 return
             }
             
@@ -90,11 +93,11 @@ class APIManager{
         guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {return}
         
         let urlString = "\(Constants.youtubeBaseUrl)search?q=\(query)&key=\(Constants.youtubeApiKey)"
-        print(urlString)
         
         AF.request(urlString).validate().responseDecodable(of: YoutubeResult.self) { response in
             guard let result = response.value else {
                 completion(.failure(APIError.failedToFetch))
+                print("API Keyleri girilmemiş olabilir :)")
                 return
             }
             

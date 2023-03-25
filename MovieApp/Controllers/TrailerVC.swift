@@ -31,6 +31,14 @@ class TrailerVC: UIViewController {
         return label
     }()
     
+    private let overViewScroll: UIScrollView = {
+        let scroll = UIScrollView(frame: .zero)
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        scroll.isScrollEnabled = true
+
+        return scroll
+    }()
+    
     private let overViewLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .regular)
@@ -61,18 +69,17 @@ class TrailerVC: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(webView)
         view.addSubview(titleLabel)
-        view.addSubview(overViewLabel)
+        view.addSubview(overViewScroll)
+        overViewScroll.addSubview(overViewLabel)
         view.addSubview(likeButton)
         setLikeButtonImage("hand.thumbsup")
         likeButton.addTarget(self, action: #selector(likeButtonPressed), for: .touchUpInside)
         setConstraints()
-        print(view.bounds.height)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         navigationController?.navigationBar.tintColor = .label
-        //navigationController?.navigationItem.hidesBackButton = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,24 +100,40 @@ class TrailerVC: UIViewController {
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ]
         
+        let scrollViewConstraints = [
+            overViewScroll.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
+            overViewScroll.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -80),
+            overViewScroll.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            overViewScroll.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+        ]
+        
+        //let stackViewConstraints = [
+        //    ovewViewStack.topAnchor.constraint(equalTo: overViewScroll.topAnchor),
+        //    ovewViewStack.bottomAnchor.constraint(equalTo: overViewScroll.bottomAnchor),
+        //    ovewViewStack.leadingAnchor.constraint(equalTo: overViewScroll.leadingAnchor),
+        //    ovewViewStack.trailingAnchor.constraint(equalTo: overViewScroll.trailingAnchor)
+        //]
+        
         let overViewLabelConstraints = [
-            overViewLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
-            overViewLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -70),
-            overViewLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            overViewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+            overViewLabel.topAnchor.constraint(equalTo: overViewScroll.topAnchor),
+            overViewLabel.bottomAnchor.constraint(equalTo: overViewScroll.bottomAnchor),
+            overViewLabel.leadingAnchor.constraint(equalTo: overViewScroll.leadingAnchor),
+            overViewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
         ]
         
         let likeButtonConstraints = [
-            likeButton.centerYAnchor.constraint(equalTo: overViewLabel.bottomAnchor, constant: 50),
-            likeButton.centerXAnchor.constraint(equalTo: view.leadingAnchor, constant: 30)
+            likeButton.centerYAnchor.constraint(equalTo: overViewScroll.bottomAnchor, constant: 30),
+            likeButton.centerXAnchor.constraint(equalTo: view.leadingAnchor, constant: 40)
         ]
         
         
-        let height = overViewLabel.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
-         overViewLabel.heightAnchor.constraint(equalToConstant: height).isActive = true
+        //let height = overViewLabel.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
+         //overViewLabel.heightAnchor.constraint(equalToConstant: height).isActive = true
         
         NSLayoutConstraint.activate(webViewConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)
+        NSLayoutConstraint.activate(scrollViewConstraints)
+        //NSLayoutConstraint.activate(stackViewConstraints)
         NSLayoutConstraint.activate(overViewLabelConstraints)
         NSLayoutConstraint.activate(likeButtonConstraints)
         
@@ -135,24 +158,24 @@ class TrailerVC: UIViewController {
             case .success(let liked):
                 DispatchQueue.main.async {
                     self.isLiked = liked
-
+                    if liked {
+                        self.setLikeButtonImage(self.likeButtonImageFillName)
+                    }
+                    else{
+                        self.setLikeButtonImage(self.likeButtonImageDefaultName)
+                    }
                 }
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
-        
-        
     }
     
     @objc func likeButtonPressed(){
         
         guard let trailerVM = trailerViewModel else { return }
-        
-        checkLikeStatus()
-        
+
         if !isLiked{
-            setLikeButtonImage(likeButtonImageFillName)
             LocalDataManager.shared.likeMedia(trailerVM) { response in
                 switch response {
                 case .success():
@@ -163,7 +186,6 @@ class TrailerVC: UIViewController {
             }
         }
         else{
-            setLikeButtonImage(likeButtonImageDefaultName)
             LocalDataManager.shared.deleteMedia(trailerVM.id) { response in
                 switch response{
                 case .success(()):
@@ -174,10 +196,10 @@ class TrailerVC: UIViewController {
             }
         }
         
-        
-        
+        checkLikeStatus()
         
     }
     
 }
+
 

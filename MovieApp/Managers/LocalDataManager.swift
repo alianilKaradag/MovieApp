@@ -24,9 +24,13 @@ class LocalDataManager{
         hasLikedBefore(trailerViewModel.id) { response in
             switch response{
             case .success(let bool):
-                if bool == true{
-                    return
+                DispatchQueue.main.async {
+                    if bool == true{
+                        return
+                    }
+                    
                 }
+
             case .failure(let error):
                 print( error.localizedDescription)
             }
