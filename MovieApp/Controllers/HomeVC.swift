@@ -10,8 +10,8 @@ import UIKit
 
 class HomeVC: UIViewController {
     
-    let sectionTitles :[String] = ["Movies", "Tv Series", "Top Rated Movies", "Upcoming Movies"]
-    var suggestionMovie: TmdbMedia?
+    private let sectionTitles :[String] = ["Movies", "Tv Series", "Top Rated Movies", "Upcoming Movies"]
+    private var suggestionMovie: TmdbMedia?
     
     
     let suggestionHeaderView: SuggestionHeaderUIView = {
@@ -146,7 +146,10 @@ extension HomeVC: HomeTableViewCellDelegate{
 
 extension HomeVC: SuggestionViewPlayButtonDelegate{
     func suggestionViewPlayButtonPressed(viewModel: TrailerViewModel) {
-        let title = suggestionMovie!.title ?? suggestionMovie!.original_title ?? suggestionMovie!.original_name ?? "Whiplash"
+        
+        guard let suggestion = suggestionMovie else { return }
+        guard let poster_path = suggestion.poster_path else { return }
+        let title = suggestion.title ?? suggestion.original_title ?? suggestion.original_name ?? Constants.suggestionMovieName
 
         APIManager.shared.searchForYoutube("\(title) + official trailer") { [weak self] response in
             switch response {
@@ -154,7 +157,7 @@ extension HomeVC: SuggestionViewPlayButtonDelegate{
                 DispatchQueue.main.async {
                     guard let strongSelf = self else {return}
                     let trailerVC = TrailerVC()
-                    let trailerVM = TrailerViewModel(title: title, youtubeView: result, titlerOverView: strongSelf.suggestionMovie!.overview ?? "")
+                    let trailerVM = TrailerViewModel(title: title, youtubeView: result, titlerOverView: strongSelf.suggestionMovie!.overview ?? "", id: strongSelf.suggestionMovie!.id, poster_path: poster_path)
                     trailerVC.setContent(trailerVM)
                     strongSelf.navigationController?.pushViewController(trailerVC, animated: true)
                 }

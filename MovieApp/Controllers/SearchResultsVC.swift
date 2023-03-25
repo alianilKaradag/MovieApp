@@ -73,13 +73,14 @@ extension SearchResultsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         resultTableView.deselectRow(at: indexPath, animated: true)
         let tmdbMedia = tmdbMedias[indexPath.row]
+        guard let poster_path = tmdbMedia.poster_path else { return }
         let title = tmdbMedia.original_title ?? tmdbMedia.title ?? tmdbMedia.original_name ?? ""
         let overView = tmdbMedia.overview ?? ""
         
         APIManager.shared.searchForYoutube("\(title) official trailer") { [weak self] response in
             switch response{
             case .success(let result):
-                let trailerVM = TrailerViewModel(title: title, youtubeView: result, titlerOverView: overView)
+                let trailerVM = TrailerViewModel(title: title, youtubeView: result, titlerOverView: overView, id: tmdbMedia.id, poster_path: poster_path)
                 self?.delegate?.searchResultPressed(trailerVM)
                 
             case .failure(let error):

@@ -21,7 +21,7 @@ class GeneralTableViewCell: UITableViewCell {
     
     private let cellLabel: UILabel = {
         let cellLabel = UILabel()
-        cellLabel.numberOfLines = 0
+        cellLabel.numberOfLines = 7
         cellLabel.translatesAutoresizingMaskIntoConstraints = false
         return cellLabel
     }()

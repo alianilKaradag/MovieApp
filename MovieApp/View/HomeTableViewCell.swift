@@ -88,13 +88,14 @@ extension HomeTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
         let tmdbMedia = tmdbMedias[indexPath.row]
         guard let tmdbMediaName = tmdbMedia.original_title ?? tmdbMedia.original_name ?? tmdbMedia.original_title else {return}
         guard let tmdbMediaOverview = tmdbMedia.overview else {return}
+        guard let poster_path = tmdbMedia.poster_path else {return}
         
         APIManager.shared.searchForYoutube(tmdbMediaName + " official trailer") { [weak self] response in
             
             switch response {
             case .success(let result):
                 DispatchQueue.main.async {
-                    let trailerViewModel = TrailerViewModel(title: tmdbMediaName, youtubeView: result, titlerOverView: tmdbMediaOverview)
+                    let trailerViewModel = TrailerViewModel(title: tmdbMediaName, youtubeView: result, titlerOverView: tmdbMediaOverview, id: tmdbMedia.id, poster_path: poster_path)
                     guard let strongSelf = self else {return}
                     self?.delegate?.homeTableViewCellDidTapCell(strongSelf, viewModel: trailerViewModel)
                 }

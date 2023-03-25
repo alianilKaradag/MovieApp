@@ -8,10 +8,16 @@
 import UIKit
 import WebKit
 
+
 class TrailerVC: UIViewController {
     
+    private var trailerViewModel: TrailerViewModel?
+    private let likeButtonImageDefaultName = "hand.thumbsup"
+    private let likeButtonImageFillName = "hand.thumbsup.fill"
+    private var isLiked: Bool = false
+    
     private let webView: WKWebView = {
-       let webView = WKWebView()
+        let webView = WKWebView()
         webView.translatesAutoresizingMaskIntoConstraints = false
         return webView
     }()
@@ -24,37 +30,31 @@ class TrailerVC: UIViewController {
         label.text = "Place Holder"
         return label
     }()
-
+    
     private let overViewLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
-        label.text = "Learn how to use Swift 5, UIKit, and Xcode to develop iOS apps by building a Netflix clone. You will learn how to implement the MVVM design pattern."
+        label.lineBreakMode = .byWordWrapping
+        label.sizeToFit()
+        label.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ullamcorper posuere turpis, et tempus leo placerat suscipit. Aenean sapien ex, semper id blandit nec, sollicitudin at mauris."
         return label
     }()
     
     private let likeButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        let buttonConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .light, scale: .default)
-        let buttonImage = UIImage(systemName: "hand.thumbsup", withConfiguration: buttonConfig)
-        button.setImage(buttonImage, for: .normal)
         button.tintColor = .label
         button.layer.masksToBounds = true
         return button
     }()
     
-    //private let dislikeButton: UIButton = {
-    //   let button = UIButton()
-    //    button.translatesAutoresizingMaskIntoConstraints = false
-    //    let buttonConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .light, scale: .default)
-    //    let buttonImage = UIImage(systemName: "hand.thumbsdown", withConfiguration: buttonConfig)
-    //    button.setImage(buttonImage, for: .normal)
-    //    button.tintColor = .label
-    //    return button
-    //}()
-    
+    private func setLikeButtonImage(_ imageName: String) {
+        let buttonConfig = UIImage.SymbolConfiguration(pointSize: 30, weight: .light, scale: .default)
+        let buttonImage = UIImage(systemName: imageName, withConfiguration: buttonConfig)
+        likeButton.setImage(buttonImage, for: .normal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,8 +63,8 @@ class TrailerVC: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(overViewLabel)
         view.addSubview(likeButton)
-        //view.addSubview(dislikeButton)
-        
+        setLikeButtonImage("hand.thumbsup")
+        likeButton.addTarget(self, action: #selector(likeButtonPressed), for: .touchUpInside)
         setConstraints()
         print(view.bounds.height)
     }
@@ -72,12 +72,17 @@ class TrailerVC: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         navigationController?.navigationBar.tintColor = .label
+        //navigationController?.navigationItem.hidesBackButton = false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        checkLikeStatus()
     }
     
     func setConstraints(){
         let webViewConstraints = [
             webView.heightAnchor.constraint(equalToConstant: view.bounds.height * 0.4),
-            webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            webView.topAnchor.constraint(equalTo: navigationController?.navigationItem.titleView?.bottomAnchor ?? view.safeAreaLayoutGuide.topAnchor, constant: 30),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ]
@@ -89,7 +94,8 @@ class TrailerVC: UIViewController {
         ]
         
         let overViewLabelConstraints = [
-            overViewLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
+            overViewLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
+            overViewLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -70),
             overViewLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             overViewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ]
@@ -99,20 +105,19 @@ class TrailerVC: UIViewController {
             likeButton.centerXAnchor.constraint(equalTo: view.leadingAnchor, constant: 30)
         ]
         
-        //let dislikeButtonConstraints = [
-        //    dislikeButton.centerYAnchor.constraint(equalTo: overViewLabel.bottomAnchor, constant: 50),
-        //    dislikeButton.centerXAnchor.constraint(equalTo: likeButton.trailingAnchor, constant: 60)
-        //]
+        
+        let height = overViewLabel.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
+         overViewLabel.heightAnchor.constraint(equalToConstant: height).isActive = true
         
         NSLayoutConstraint.activate(webViewConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(overViewLabelConstraints)
         NSLayoutConstraint.activate(likeButtonConstraints)
-       //NSLayoutConstraint.activate(dislikeButtonConstraints)
+        
     }
-
     
     func setContent(_ trailerViewModel: TrailerViewModel){
+        self.trailerViewModel = trailerViewModel
         titleLabel.text = trailerViewModel.title
         overViewLabel.text = trailerViewModel.titlerOverView
         
@@ -121,7 +126,57 @@ class TrailerVC: UIViewController {
         DispatchQueue.main.async {
             self.webView.load(URLRequest(url: url))
         }
- 
+    }
+    
+    private func checkLikeStatus(){
+        guard let trailerVM = trailerViewModel else { return }
+        LocalDataManager.shared.hasLikedBefore(trailerVM.id) { response in
+            switch response{
+            case .success(let liked):
+                DispatchQueue.main.async {
+                    self.isLiked = liked
+
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
+        
+    }
+    
+    @objc func likeButtonPressed(){
+        
+        guard let trailerVM = trailerViewModel else { return }
+        
+        checkLikeStatus()
+        
+        if !isLiked{
+            setLikeButtonImage(likeButtonImageFillName)
+            LocalDataManager.shared.likeMedia(trailerVM) { response in
+                switch response {
+                case .success():
+                    print("Succesfully saved the Media")
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
+        else{
+            setLikeButtonImage(likeButtonImageDefaultName)
+            LocalDataManager.shared.deleteMedia(trailerVM.id) { response in
+                switch response{
+                case .success(()):
+                    print("Succesfully deleted the Media")
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
+        
+        
+        
+        
     }
     
 }

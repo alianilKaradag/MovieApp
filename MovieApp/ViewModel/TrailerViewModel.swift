@@ -11,4 +11,6 @@ struct TrailerViewModel{
     let title: String
     let youtubeView: YoutubeItem
     let titlerOverView: String
+    let id: Int
+    let poster_path: String
 }

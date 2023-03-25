@@ -78,11 +78,12 @@ class SuggestionHeaderUIView: UIView {
     
     @objc func playButtonPressed(){
         guard let suggestionMovie = self.suggestionMovie else {return}
+        guard let poster_path = suggestionMovie.poster_path else { return }
         
         APIManager.shared.searchForYoutube("\(Constants.suggestionMovieName) official trailer") { response in
             switch response{
             case .success(let result):
-                let trailerViewModel = TrailerViewModel(title: Constants.suggestionMovieName, youtubeView: result, titlerOverView: suggestionMovie.overview ?? "")
+                let trailerViewModel = TrailerViewModel(title: Constants.suggestionMovieName, youtubeView: result, titlerOverView: suggestionMovie.overview ?? "", id: suggestionMovie.id, poster_path: poster_path)
                 self.delegate?.suggestionViewPlayButtonPressed(viewModel: trailerViewModel)
                 
             case .failure(let error):

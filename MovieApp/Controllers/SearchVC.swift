@@ -56,8 +56,8 @@ class SearchVC: UIViewController {
         APIManager.shared.fillSearchVCTrends { [weak self] response in
             switch response{
             case .success(let resultMedia):
-                self?.tmdbMedias = resultMedia
                 DispatchQueue.main.async {
+                    self?.tmdbMedias = resultMedia
                     self?.searchTable.reloadData()
                 }
                 
@@ -124,13 +124,14 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource, UISearchResultsU
         let tmdbMedia = tmdbMedias[indexPath.row]
         guard let tmdbMediaName = tmdbMedia.original_title ?? tmdbMedia.original_name ?? tmdbMedia.original_title else {return}
         guard let tmdbMediaOverview = tmdbMedia.overview else {return}
+        guard let poster_path = tmdbMedia.poster_path else {return}
         
         APIManager.shared.searchForYoutube(tmdbMediaName + " official trailer") { [weak self] response in
             
             switch response {
             case .success(let result):
                 DispatchQueue.main.async {
-                    let trailerViewModel = TrailerViewModel(title: tmdbMediaName, youtubeView: result, titlerOverView: tmdbMediaOverview)
+                    let trailerViewModel = TrailerViewModel(title: tmdbMediaName, youtubeView: result, titlerOverView: tmdbMediaOverview, id: tmdbMedia.id, poster_path: poster_path)
                     guard let strongSelf = self else {return}
                     let trailerVC = TrailerVC()
                     trailerVC.setContent(trailerViewModel)

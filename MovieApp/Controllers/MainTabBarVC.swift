@@ -19,7 +19,8 @@ class MainTabBarVC: UITabBarController {
     func setupViewControllers() {
           viewControllers = [
             createNavigationController(HomeVC(), title: "Home", UIImage(systemName:"house")!),
-            createNavigationController(SearchVC(), title: "Search", UIImage(systemName:"magnifyingglass")!)
+            createNavigationController(SearchVC(), title: "Search", UIImage(systemName:"magnifyingglass")!),
+            createNavigationController(LikesVC(), title: "Likes", UIImage(systemName:"hand.thumbsup.fill")!)
           ]
       }
     
