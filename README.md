@@ -1,6 +1,7 @@
 # MovieApp
  
 Gif
+--------------------------------------------------------------------------------------
 <img src="https://github.com/alianilKaradag/MovieApp/blob/main/showCaseGif.gif" width="256">
 
 ◆ Responsive Design
