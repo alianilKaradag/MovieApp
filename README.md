@@ -21,8 +21,7 @@ Packages
 Screen Shots
 --------------------------------------------------------------------------------------
 
-![VerticalLight](../master/WeatherApp/ScreenShots/VerticalLight.png)
-<img src="https://github.com/alianilKaradag/MovieApp/blob/main/showCaseGif.gif" width="256">
+<img src="https://github.com/alianilKaradag/MovieApp/blob/main/MovieApp/ScreenShots/ss1.png" width="256">
 
 --------------------------------------------------------------------------------------
 
