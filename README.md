@@ -1,3 +1,3 @@
 # MovieApp
  
-<img src="https://github.com/alianilKaradag/MovieApp/blob/main/showCaseGif.gif" width="512">
+<img src="https://github.com/alianilKaradag/MovieApp/blob/main/showCaseGif.gif" width="256">
