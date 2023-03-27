@@ -66,6 +66,7 @@ class TrailerVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.tintColor = .label
         view.backgroundColor = .systemBackground
         view.addSubview(webView)
         view.addSubview(titleLabel)
@@ -79,7 +80,7 @@ class TrailerVC: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        navigationController?.navigationBar.tintColor = .label
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
