@@ -1,5 +1,7 @@
 # MovieApp
  
+With this application, you can watch trailers of Movies/TV shows pulled from The Movie Database on YouTube and save the ones you like. I hope you enjoy it.
+
 Gif
 --------------------------------------------------------------------------------------
 <img src="https://github.com/alianilKaradag/MovieApp/blob/main/showCaseGif.gif" width="256">
