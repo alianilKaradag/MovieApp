@@ -25,12 +25,32 @@ Screen Shots
 
 --------------------------------------------------------------------------------------
 
-![HorizontalLight](../master/WeatherApp/ScreenShots/HorizontalLight.png)
+<img src="https://github.com/alianilKaradag/MovieApp/blob/main/MovieApp/ScreenShots/ss2.png" width="256">
 
 --------------------------------------------------------------------------------------
 
-![VerticalDark](../master/WeatherApp/ScreenShots/VerticalDark.png)
+<img src="https://github.com/alianilKaradag/MovieApp/blob/main/MovieApp/ScreenShots/ss3.png" width="256">
 
 --------------------------------------------------------------------------------------
 
-![HorizantalDark](../master/WeatherApp/ScreenShots/HorizontalDark.png)
+<img src="https://github.com/alianilKaradag/MovieApp/blob/main/MovieApp/ScreenShots/ss4.png" width="256">
+
+--------------------------------------------------------------------------------------
+
+<img src="https://github.com/alianilKaradag/MovieApp/blob/main/MovieApp/ScreenShots/ss5.png" width="256">
+
+--------------------------------------------------------------------------------------
+
+<img src="https://github.com/alianilKaradag/MovieApp/blob/main/MovieApp/ScreenShots/ss6.png" width="256">
+
+--------------------------------------------------------------------------------------
+
+<img src="https://github.com/alianilKaradag/MovieApp/blob/main/MovieApp/ScreenShots/ss7.png" width="256">
+
+--------------------------------------------------------------------------------------
+
+<img src="https://github.com/alianilKaradag/MovieApp/blob/main/MovieApp/ScreenShots/ss8.png" width="256">
+
+--------------------------------------------------------------------------------------
+
+<img src="https://github.com/alianilKaradag/MovieApp/blob/main/MovieApp/ScreenShots/ss9.png" width="256">
