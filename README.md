@@ -1,6 +1,6 @@
 # MovieApp
  
-📺 With this application, you can watch trailers of Movies/TV shows pulled from The Movie Database on YouTube and save the ones you like. I hope you enjoy it.
+🧑🏻‍💻 "This application pulls popular movies and TV shows from The Movie Database. Additionally, you can watch trailers of these contents on YouTube and save the ones you like. I hope you enjoy it."
 
 Gif
 --------------------------------------------------------------------------------------
